@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3034132F1FE955740027C384 /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3034132E1FE955740027C384 /* CategoryRow.swift */; };
+		303413311FE955980027C384 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303413301FE955980027C384 /* VideoCell.swift */; };
 		3054A66B1FE89C0D002BA540 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3054A66A1FE89C0D002BA540 /* AppDelegate.swift */; };
 		3054A66D1FE89C0D002BA540 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3054A66C1FE89C0D002BA540 /* ViewController.swift */; };
 		3054A6701FE89C0D002BA540 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3054A66E1FE89C0D002BA540 /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3034132E1FE955740027C384 /* CategoryRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
+		303413301FE955980027C384 /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		3054A6671FE89C0D002BA540 /* iOSHomework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSHomework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3054A66A1FE89C0D002BA540 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3054A66C1FE89C0D002BA540 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +85,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3034132B1FE9546A0027C384 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3054A66C1FE89C0D002BA540 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3034132C1FE954750027C384 /* Tableviews */ = {
+			isa = PBXGroup;
+			children = (
+				3034132D1FE954800027C384 /* Cells */,
+			);
+			path = Tableviews;
+			sourceTree = "<group>";
+		};
+		3034132D1FE954800027C384 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				303413301FE955980027C384 /* VideoCell.swift */,
+				3034132E1FE955740027C384 /* CategoryRow.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		3054A65E1FE89C0C002BA540 = {
 			isa = PBXGroup;
 			children = (
@@ -106,12 +135,13 @@
 		3054A6691FE89C0D002BA540 /* iOSHomework */ = {
 			isa = PBXGroup;
 			children = (
+				3034132C1FE954750027C384 /* Tableviews */,
+				3034132B1FE9546A0027C384 /* ViewControllers */,
 				3054A69F1FE8CA2A002BA540 /* Models */,
 				3054A69E1FE8CA1D002BA540 /* Objects */,
 				3054A69D1FE8CA06002BA540 /* MainControllers */,
 				3054A69C1FE8CA02002BA540 /* UI */,
 				3054A66A1FE89C0D002BA540 /* AppDelegate.swift */,
-				3054A66C1FE89C0D002BA540 /* ViewController.swift */,
 				3054A6711FE89C0D002BA540 /* Assets.xcassets */,
 				3054A6761FE89C0D002BA540 /* Info.plist */,
 			);
@@ -379,8 +409,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				303413311FE955980027C384 /* VideoCell.swift in Sources */,
 				3054A66D1FE89C0D002BA540 /* ViewController.swift in Sources */,
 				3054A6A11FE8CBB3002BA540 /* SaveToken.swift in Sources */,
+				3034132F1FE955740027C384 /* CategoryRow.swift in Sources */,
 				3054A66B1FE89C0D002BA540 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,7 +581,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C5LSSWX573;
+				DEVELOPMENT_TEAM = 7RQFGG78B4;
 				INFOPLIST_FILE = iOSHomework/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -566,7 +598,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C5LSSWX573;
+				DEVELOPMENT_TEAM = 7RQFGG78B4;
 				INFOPLIST_FILE = iOSHomework/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

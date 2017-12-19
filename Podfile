@@ -12,5 +12,6 @@ target 'iOSHomework' do
  	pod 'Fabric'
 	pod 'Crashlytics'
 	pod 'NVActivityIndicatorView'
+	
 
 end
