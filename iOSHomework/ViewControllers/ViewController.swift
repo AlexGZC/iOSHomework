@@ -7,9 +7,13 @@
 //
 
 import UIKit
-
+import Alamofire
 class ViewController: UIViewController {
     var categories = ["Action", "Drama", "Science Fiction", "Kids", "Horror"]
+    override func viewDidLoad() {
+        loginUser()
+    }
+
 }
 
 /*Extending Viewcontroller as ViewDelegate*/
@@ -33,7 +37,26 @@ extension ViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CategoryRow
+     
         return cell
+    }
+    
+    func loginUser() {
+        
+        var code:String?
+        var accessToken:String?
+        
+        let path:String = "https://anilist.co/api/auth/access_token?"
+        
+        let parameters:[String:String] = ["grant_type": "client_credentials","client_id": "alexgcz-eccbk", "client_secret": "qTfhz0Z0v4hho2bweDhurQbM"]
+        let headers:[String:String] = ["Content-Type": "application/x-www-form-urlencoded","Accept": "application/json"]
+        
+        GetAPIManager.Post(path, params: parameters as [String : AnyObject], success: { (json) in
+            
+            print(json["access_token"])s
+        }) { (error) in
+            
+        }
     }
     
 }

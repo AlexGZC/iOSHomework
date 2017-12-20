@@ -17,6 +17,7 @@
 		3054A6801FE89C0D002BA540 /* iOSHomeworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3054A67F1FE89C0D002BA540 /* iOSHomeworkTests.swift */; };
 		3054A68B1FE89C0D002BA540 /* iOSHomeworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3054A68A1FE89C0D002BA540 /* iOSHomeworkUITests.swift */; };
 		3054A6A11FE8CBB3002BA540 /* SaveToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3054A6A01FE8CBB3002BA540 /* SaveToken.swift */; };
+		30C62ECF1FEB0F8400C52092 /* GetAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C62ECE1FEB0F8400C52092 /* GetAPIManager.swift */; };
 		8920BBC5DC2E357389FB50B4 /* Pods_iOSHomework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 409697BDAF1F3769F9B30DE5 /* Pods_iOSHomework.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		3054A68A1FE89C0D002BA540 /* iOSHomeworkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSHomeworkUITests.swift; sourceTree = "<group>"; };
 		3054A68C1FE89C0D002BA540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3054A6A01FE8CBB3002BA540 /* SaveToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToken.swift; sourceTree = "<group>"; };
+		30C62ECE1FEB0F8400C52092 /* GetAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAPIManager.swift; sourceTree = "<group>"; };
 		409697BDAF1F3769F9B30DE5 /* Pods_iOSHomework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSHomework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF5F6C47657FAAF09058937 /* Pods-iOSHomework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSHomework.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSHomework/Pods-iOSHomework.debug.xcconfig"; sourceTree = "<group>"; };
 		6D0428F49AA3EE8A5FFD7FCC /* Pods-iOSHomework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSHomework.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSHomework/Pods-iOSHomework.release.xcconfig"; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 		3054A69D1FE8CA06002BA540 /* MainControllers */ = {
 			isa = PBXGroup;
 			children = (
+				30C62ECE1FEB0F8400C52092 /* GetAPIManager.swift */,
 			);
 			path = MainControllers;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				303413311FE955980027C384 /* VideoCell.swift in Sources */,
 				3054A66D1FE89C0D002BA540 /* ViewController.swift in Sources */,
 				3054A6A11FE8CBB3002BA540 /* SaveToken.swift in Sources */,
+				30C62ECF1FEB0F8400C52092 /* GetAPIManager.swift in Sources */,
 				3034132F1FE955740027C384 /* CategoryRow.swift in Sources */,
 				3054A66B1FE89C0D002BA540 /* AppDelegate.swift in Sources */,
 			);
