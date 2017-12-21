@@ -8,13 +8,26 @@
 
 import UIKit
 import Alamofire
+import Reachability
+import SwiftyJSON
+
 class ViewController: UIViewController {
-    var categories = ["Action", "Drama", "Science Fiction", "Kids", "Horror"]
+    
+    @IBOutlet weak var tableContainer: UITableView!
+    var categories = ["Anime"]
+    
+    let reachability = Reachability()
+    
     override func viewDidLoad() {
-        loginUser()
+        General()
+        
+        
     }
 
 }
+
+
+
 
 /*Extending Viewcontroller as ViewDelegate*/
 extension ViewController : UITableViewDelegate { }
@@ -24,8 +37,29 @@ extension ViewController : UITableViewDelegate { }
 extension ViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         return categories[section]
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = GeneralAttributes.hexStringToUIColor(hex: "#303030")
+        
+        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
+            tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.textColor = UIColor.white
+        headerLabel.font = UIFont(name: "Verdana", size: 20)
+        headerLabel.text = self.tableView(self.tableContainer, titleForHeaderInSection: section)
+        headerLabel.sizeToFit()
+        headerView.addSubview(headerLabel)
+        
+        return headerView
+    }
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return categories.count
@@ -37,26 +71,16 @@ extension ViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CategoryRow
-     
-        return cell
+                return cell
     }
     
-    func loginUser() {
+    func General(){
         
-        var code:String?
-        var accessToken:String?
-        
-        let path:String = "https://anilist.co/api/auth/access_token?"
-        
-        let parameters:[String:String] = ["grant_type": "client_credentials","client_id": "alexgcz-eccbk", "client_secret": "qTfhz0Z0v4hho2bweDhurQbM"]
-        let headers:[String:String] = ["Content-Type": "application/x-www-form-urlencoded","Accept": "application/json"]
-        
-        GetAPIManager.Post(path, params: parameters as [String : AnyObject], success: { (json) in
-            
-            print(json["access_token"])s
-        }) { (error) in
-            
-        }
+        self.tableContainer.separatorStyle = .none
     }
+    
+   
+    
     
 }
+

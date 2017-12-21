@@ -16,10 +16,10 @@ class GetAPIManager: NSObject{
         case objectSerialization(reason: String)
     }
     
-    class func Get(_ strURL: String, success:@escaping (JSON) -> Void, failure:@escaping (Error) -> Void) {
-        Alamofire.request(strURL, method: .get, encoding: JSONEncoding.default).responseJSON { (responseObject) -> Void in
+    class func Get(_ strURL: URLRequest, success:@escaping (JSON) -> Void, failure:@escaping (Error) -> Void) {
+        Alamofire.request(strURL).responseJSON { (responseObject) -> Void in
             
-            print(responseObject)
+            //print(responseObject)
             
             if responseObject.result.isSuccess {
                 let resJson = JSON(responseObject.result.value!)
