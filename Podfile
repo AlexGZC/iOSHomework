@@ -13,7 +13,6 @@ target 'iOSHomework' do
 	pod 'Crashlytics'
 	pod 'NVActivityIndicatorView'
 	pod 'Reachability'
-	pod 'AlamofireImage', '~> 3.3'
 
 
 end

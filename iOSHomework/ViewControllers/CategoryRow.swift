@@ -10,15 +10,38 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import NVActivityIndicatorView
-import AlamofireImage
 
 class CategoryRow : UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     var arrRes = [[String:AnyObject]]() //Array of dictionary
+    var items = [AnimeModel]()
+    var filterItems = [AnimeModel]()
     
     override func awakeFromNib() {
-        alamofirePost()
+        let reachability = Reachability()!
+        
+        switch reachability.connection {
+        case .wifi:
+            DispatchQueue.main.async {
+                self.alamofirePost()
+            }
+        case .cellular:
+            DispatchQueue.main.async {
+                self.alamofirePost()
+            }
+        case .none:
+            var alert = UIAlertView(title: "Sin conexión", message: "Debes tener una conexión a Internet", delegate: nil, cancelButtonTitle: "OK")
+            
+            alert.show()
+            
+        
+            
+        }
+
     }
+
+    
+    
 }
 
 extension CategoryRow : UICollectionViewDataSource {
@@ -30,14 +53,30 @@ extension CategoryRow : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //alamofirePost()
+       
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath) as! VideoCell
+       
+        GeneralAttributes.loadImageFromUrl(url: items[indexPath.row].image_url_med.description, view: cell.imageView)
         
-        var dict = arrRes[(indexPath as NSIndexPath).row]
-        print()
-        
-        loadImageFromUrl(url: dict["image_url_med"] as! String, view: cell.imageView)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(connected(_:)))
+        cell.imageView.tag = indexPath.row
+        cell.imageView.addGestureRecognizer(tapGestureRecognizer)
+        cell.imageView.isUserInteractionEnabled = true
         return cell
+    }
+    
+    @objc func connected(_ sender:AnyObject){
+        print("you tap image number : \(sender.view.tag)")
+         print(items[sender.view.tag].title_english.description)
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let popOverVC = storyboard.instantiateViewController(withIdentifier: "animeDetails") as! DetailsViewController
+        popOverVC.getEnglishTitle = items[sender.view.tag].title_english.description
+        popOverVC.getJapaneseTitle = items[sender.view.tag].title_japanese.description
+        popOverVC.bannerImage = items[sender.view.tag].image_url_banner.description
+        popOverVC.adult = items[sender.view.tag].adult
+
+        self.window?.rootViewController?.present(popOverVC, animated: true , completion: nil)
     }
     
 }
@@ -58,6 +97,7 @@ extension CategoryRow : UICollectionViewDelegateFlowLayout {
     
     func alamofirePost() {
         let params: [String: Any] = ["grant_type": "client_credentials","client_id": "alexgcz-eccbk", "client_secret": "qTfhz0Z0v4hho2bweDhurQbM"]
+        
         Alamofire.request(Router.create(params))
             .responseJSON { response in
                 guard response.result.error == nil else {
@@ -68,7 +108,7 @@ extension CategoryRow : UICollectionViewDelegateFlowLayout {
                 }
                 // make sure we got some JSON since that's what we expect
                 guard let json = response.result.value as? [String: Any] else {
-                    print("didn't get todo object as JSON from API")
+                    print("didn't get object as JSON from API")
                     print("Error: \(String(describing: response.result.error))")
                     
                     return
@@ -83,6 +123,7 @@ extension CategoryRow : UICollectionViewDelegateFlowLayout {
                 
         }
     }
+    
     
     func getanime(token:String){
         let url: String = "https://anilist.co/api/browse/anime"
@@ -104,6 +145,15 @@ extension CategoryRow : UICollectionViewDelegateFlowLayout {
                 self.arrRes = jsonvar as! [[String:AnyObject]]
                 
             }
+            
+
+            if let resData = swiftvar.arrayObject as? [[String: Any]] {
+                
+                self.items = resData.map(AnimeModel.init)
+                
+            }
+            
+            
             if self.arrRes.count > 0{
              self.collectionView.reloadData()
              
@@ -114,30 +164,6 @@ extension CategoryRow : UICollectionViewDelegateFlowLayout {
     }
     
     
-    func loadImageFromUrl(url: String, view: UIImageView){
-        
-        // Create Url from string
-        let url = NSURL(string: url)!
-        
-        // Download task:
-        // - sharedSession = global NSURLCache, NSHTTPCookieStorage and NSURLCredentialStorage objects.
-        let task = URLSession.shared.dataTask(with: url as URL) { (responseData, responseUrl, error) -> Void in
-            // if responseData is not null...
-            if let data = responseData{
-                
-                // execute in UI thread
-                DispatchQueue.main.async(execute: { () -> Void in
-                    let image = UIImage(data: data)
-                    
-                    view.image = image
-                    
-                    
-                })
-            }
-        }
-        
-        // Run task
-        task.resume()
-    }
+   
     
 }

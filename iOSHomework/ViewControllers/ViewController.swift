@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import Reachability
+
 import SwiftyJSON
 
 class ViewController: UIViewController {
@@ -16,17 +16,31 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableContainer: UITableView!
     var categories = ["Anime"]
     
-    let reachability = Reachability()
+    
     
     override func viewDidLoad() {
         General()
-        
-        
+        let reachability = Reachability()!
+        switch reachability.connection {
+        case .wifi:
+            DispatchQueue.main.async {
+                
+            }
+        case .cellular:
+            DispatchQueue.main.async {
+                
+            }
+        case .none:
+            var alert = UIAlertView(title: "Sin conexión", message: "Debes tener una conexión a Internet", delegate: nil, cancelButtonTitle: "OK")
+            
+            alert.show()
+            
+            
+            
+        }
     }
 
 }
-
-
 
 
 /*Extending Viewcontroller as ViewDelegate*/
@@ -49,9 +63,10 @@ extension ViewController : UITableViewDataSource {
         let headerView = UIView()
         headerView.backgroundColor = GeneralAttributes.hexStringToUIColor(hex: "#303030")
         
-        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
+        let headerLabel = UILabel(frame: CGRect(x: 30, y: 5, width:
             tableView.bounds.size.width, height: tableView.bounds.size.height))
         headerLabel.textColor = UIColor.white
+    
         headerLabel.font = UIFont(name: "Verdana", size: 20)
         headerLabel.text = self.tableView(self.tableContainer, titleForHeaderInSection: section)
         headerLabel.sizeToFit()

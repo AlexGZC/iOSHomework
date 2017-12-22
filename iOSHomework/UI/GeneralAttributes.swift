@@ -19,7 +19,12 @@ class GeneralAttributes{
         //...
         controller.present(alertController, animated: true, completion: nil)
     }
-    
+    static func showAlertMessage2(titleStr:String, messageStr:String,fromController controller: CategoryRow) -> Void {
+        let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+        //...
+        
+    }
 
     //Circleimageview
     static func circleimage(imageview: UIImageView){
@@ -29,6 +34,35 @@ class GeneralAttributes{
         imageview.layer.cornerRadius = imageview.frame.size.width / 2;
         imageview.clipsToBounds = true;
         
+    }
+    
+    
+    static func loadImageFromUrl(url: String, view: UIImageView){
+        let y = CGSize(width: 5, height: 5)
+
+        
+        // Create Url from string
+        let url = NSURL(string: url)!
+        
+        // Download task:
+        // - sharedSession = global NSURLCache, NSHTTPCookieStorage and NSURLCredentialStorage objects.
+        let task = URLSession.shared.dataTask(with: url as URL) { (responseData, responseUrl, error) -> Void in
+            // if responseData is not null...
+            if let data = responseData{
+                
+                // execute in UI thread
+                DispatchQueue.main.async(execute: { () -> Void in
+                    let image = UIImage(data: data)
+                    
+                    view.image = image
+                    
+                    
+                })
+            }
+        }
+        
+        // Run task
+        task.resume()
     }
     
     //Set an image into Itembar
