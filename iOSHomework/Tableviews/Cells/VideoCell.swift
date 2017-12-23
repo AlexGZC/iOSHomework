@@ -7,8 +7,9 @@
 //
 
 import UIKit
-
+import NVActivityIndicatorView
 class VideoCell : UICollectionViewCell {
     
+
     @IBOutlet weak var imageView: UIImageView!
 }

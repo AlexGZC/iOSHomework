@@ -11,11 +11,15 @@ import Alamofire
 import SwiftyJSON
 import NVActivityIndicatorView
 
-class CategoryRow : UITableViewCell {
+class CategoryRow : UITableViewCell, NVActivityIndicatorViewable {
     @IBOutlet weak var collectionView: UICollectionView!
     var arrRes = [[String:AnyObject]]() //Array of dictionary
     var items = [AnimeModel]()
     var filterItems = [AnimeModel]()
+
+
+    let frames = CGRect(x: 0, y: 0, width: 15.0, height: 15.0)
+    
     
     override func awakeFromNib() {
         let reachability = Reachability()!
@@ -23,14 +27,14 @@ class CategoryRow : UITableViewCell {
         switch reachability.connection {
         case .wifi:
             DispatchQueue.main.async {
-                self.alamofirePost()
+                self.getTokenPost()
             }
         case .cellular:
             DispatchQueue.main.async {
-                self.alamofirePost()
+                self.getTokenPost()
             }
         case .none:
-            var alert = UIAlertView(title: "Sin conexión", message: "Debes tener una conexión a Internet", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Sin conexión", message: "Debes tener una conexión a Internet", delegate: nil, cancelButtonTitle: "OK")
             
             alert.show()
             
@@ -40,62 +44,8 @@ class CategoryRow : UITableViewCell {
 
     }
 
-    
-    
-}
-
-extension CategoryRow : UICollectionViewDataSource {
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrRes.count
+    func getTokenPost() {
         
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath) as! VideoCell
-       
-        GeneralAttributes.loadImageFromUrl(url: items[indexPath.row].image_url_med.description, view: cell.imageView)
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(connected(_:)))
-        cell.imageView.tag = indexPath.row
-        cell.imageView.addGestureRecognizer(tapGestureRecognizer)
-        cell.imageView.isUserInteractionEnabled = true
-        return cell
-    }
-    
-    @objc func connected(_ sender:AnyObject){
-        print("you tap image number : \(sender.view.tag)")
-         print(items[sender.view.tag].title_english.description)
-
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let popOverVC = storyboard.instantiateViewController(withIdentifier: "animeDetails") as! DetailsViewController
-        popOverVC.getEnglishTitle = items[sender.view.tag].title_english.description
-        popOverVC.getJapaneseTitle = items[sender.view.tag].title_japanese.description
-        popOverVC.bannerImage = items[sender.view.tag].image_url_banner.description
-        popOverVC.adult = items[sender.view.tag].adult
-
-        self.window?.rootViewController?.present(popOverVC, animated: true , completion: nil)
-    }
-    
-}
-
-
-
-
-
-extension CategoryRow : UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemsPerRow:CGFloat = 4
-        let hardCodedPadding:CGFloat = 5
-        let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
-        let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)
-        return CGSize(width: itemWidth, height: itemHeight)
-    }
-    
-    func alamofirePost() {
         let params: [String: Any] = ["grant_type": "client_credentials","client_id": "alexgcz-eccbk", "client_secret": "qTfhz0Z0v4hho2bweDhurQbM"]
         
         Alamofire.request(Router.create(params))
@@ -146,7 +96,7 @@ extension CategoryRow : UICollectionViewDelegateFlowLayout {
                 
             }
             
-
+            
             if let resData = swiftvar.arrayObject as? [[String: Any]] {
                 
                 self.items = resData.map(AnimeModel.init)
@@ -155,14 +105,71 @@ extension CategoryRow : UICollectionViewDelegateFlowLayout {
             
             
             if self.arrRes.count > 0{
-             self.collectionView.reloadData()
-             
-             }
+                self.collectionView.reloadData()
+                
+            }
         }) { (error) in
             
         }
     }
     
+    
+}
+
+extension CategoryRow : UICollectionViewDataSource {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrRes.count
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath) as! VideoCell
+        
+               GeneralAttributes.loadImageFromUrl(url: items[indexPath.row].image_url_med.description, view: cell.imageView)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(connected(_:)))
+        cell.imageView.tag = indexPath.row
+        cell.imageView.addGestureRecognizer(tapGestureRecognizer)
+        cell.imageView.isUserInteractionEnabled = true
+        return cell
+    }
+    
+    @objc func connected(_ sender:AnyObject){
+        
+        print(items[sender.view.tag].title_english.description)
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let passSecondController = storyboard.instantiateViewController(withIdentifier: "animeDetails") as! DetailsViewController
+        passSecondController.getEnglishTitle = items[sender.view.tag].title_english.description
+        passSecondController.getJapaneseTitle = items[sender.view.tag].title_japanese.description
+        passSecondController.bannerImage = items[sender.view.tag].image_url_banner.description
+        passSecondController.adult = items[sender.view.tag].adult
+        passSecondController.average = items[sender.view.tag].average_score
+        passSecondController.getDescription = items[sender.view.tag].description
+        
+        self.window?.rootViewController?.present(passSecondController, animated: true , completion: nil)
+    }
+    
+}
+
+
+
+
+
+extension CategoryRow : UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemsPerRow:CGFloat = 4
+        let hardCodedPadding:CGFloat = 5
+        let itemWidth = (collectionView.bounds.width / itemsPerRow) - hardCodedPadding
+        let itemHeight = collectionView.bounds.height - (2 * hardCodedPadding)
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+    
+
     
    
     

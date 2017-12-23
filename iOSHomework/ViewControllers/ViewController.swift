@@ -8,10 +8,10 @@
 
 import UIKit
 import Alamofire
-
+import NVActivityIndicatorView
 import SwiftyJSON
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,NVActivityIndicatorViewable{
     
     @IBOutlet weak var tableContainer: UITableView!
     var categories = ["Anime"]
@@ -20,24 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         General()
-        let reachability = Reachability()!
-        switch reachability.connection {
-        case .wifi:
-            DispatchQueue.main.async {
-                
-            }
-        case .cellular:
-            DispatchQueue.main.async {
-                
-            }
-        case .none:
-            var alert = UIAlertView(title: "Sin conexión", message: "Debes tener una conexión a Internet", delegate: nil, cancelButtonTitle: "OK")
-            
-            alert.show()
-            
-            
-            
-        }
+        
     }
 
 }
@@ -86,6 +69,7 @@ extension ViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CategoryRow
+        
                 return cell
     }
     
@@ -94,8 +78,8 @@ extension ViewController : UITableViewDataSource {
         self.tableContainer.separatorStyle = .none
     }
     
-   
     
+
     
 }
 

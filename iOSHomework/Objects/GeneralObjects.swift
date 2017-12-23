@@ -17,9 +17,11 @@ struct AnimeModel { //Make some suitable name
     let type: String
     let start_date_fuzzy: Int?
     let end_date_fuzzy: Int?
-    let season: String
+    let season: Int
     let description: String
-    //let synonyms : Array<Any>
+    let synonyms : NSArray
+    let adult: Bool
+    let average_score : Double
     //let logo: String
     //let descrip: String
     //let menu: String
@@ -27,28 +29,28 @@ struct AnimeModel { //Make some suitable name
     let image_url_med: String
     let image_url_lge: String
     let image_url_banner: String
-    let adult: Bool
+    
     init(dictionary: [String:Any]) {
         self.id = dictionary["id"] as? String ?? "Default Id"
         self.title_romaji = dictionary["title_romaji"] as? String ?? "Default title_romaji"
         self.title_english = dictionary["title_english"] as? String ?? "Default title_english"
         self.title_japanese = dictionary["title_japanese"] as? String ?? "Default telefono"
-        self.type = dictionary["telefono2"] as? String ?? "Default telefono"
-        self.start_date_fuzzy = dictionary["facebook"] as? Int ?? 170801
-        self.end_date_fuzzy = dictionary["twitter"] as? Int ?? 170801
-        self.season = dictionary["instagram"] as? String ?? "Default district"
-        self.description = dictionary["instagram"] as? String ?? "Default instagram"
-        //self.synonyms = (dictionary["horarios"] as? [String])!
-        //self.logo = dictionary["logo"] as? String ?? "Default rating"
-        //self.descrip = dictionary["descripcion"] as? String ?? "Default descripcion"
-        //self.menu = (dictionary["menu"] as? String)!
+        self.type = dictionary["type"] as? String ?? "Default telefono"
+        self.start_date_fuzzy = dictionary["start_date_fuzzy"] as? Int ?? 170801
+        self.end_date_fuzzy = dictionary["end_date_fuzzy"] as? Int ?? 170801
+        self.season = dictionary["season"] as? Int ?? 0
+        self.description = dictionary["description"] as? String ?? "Anime by Alex Contreras"
+        self.synonyms = (dictionary["synonyms"] as? NSArray)!
+        
+        self.adult = dictionary["adult"] as? Bool ?? false
+        self.average_score = dictionary["average_score"] as? Double ?? 0.0
         self.image_url_sml = dictionary["image_url_sml"] as? String ?? "https://vignette.wikia.nocookie.net/r2da/images/4/46/Tumblr_static_i_love_anime_large.png/revision/latest?cb=20150922211250"
         self.image_url_med = dictionary["image_url_med"] as? String ?? "https://vignette.wikia.nocookie.net/r2da/images/4/46/Tumblr_static_i_love_anime_large.png/revision/latest?cb=20150922211250"
         
         self.image_url_lge = dictionary["image_url_lge"] as? String ?? "https://vignette.wikia.nocookie.net/r2da/images/4/46/Tumblr_static_i_love_anime_large.png/revision/latest?cb=20150922211250"
         
         self.image_url_banner = dictionary["image_url_banner"] as? String ?? dictionary["image_url_lge"] as! String
-        self.adult = dictionary["adult"] as? Bool ?? false
+        
     }
 }
 

@@ -13,6 +13,7 @@ target 'iOSHomework' do
 	pod 'Crashlytics'
 	pod 'NVActivityIndicatorView'
 	pod 'Reachability'
+	pod 'HCSStarRatingView', '~> 1.5'
 
 
 end
