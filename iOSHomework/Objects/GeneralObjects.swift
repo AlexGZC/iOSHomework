@@ -15,13 +15,14 @@ struct AnimeModel { //Make some suitable name
     let title_english: String
     let title_japanese: String
     let type: String
-    let start_date_fuzzy: Int?
-    let end_date_fuzzy: Int?
+    let start_date_fuzzy: Int
+    let end_date_fuzzy: Int
     let season: Int
     let description: String
     let synonyms : NSArray
     let adult: Bool
     let average_score : Double
+    let popularity : Int
     //let logo: String
     //let descrip: String
     //let menu: String
@@ -44,6 +45,7 @@ struct AnimeModel { //Make some suitable name
         
         self.adult = dictionary["adult"] as? Bool ?? false
         self.average_score = dictionary["average_score"] as? Double ?? 0.0
+        self.popularity = dictionary["popularity"] as? Int ?? 0
         self.image_url_sml = dictionary["image_url_sml"] as? String ?? "https://vignette.wikia.nocookie.net/r2da/images/4/46/Tumblr_static_i_love_anime_large.png/revision/latest?cb=20150922211250"
         self.image_url_med = dictionary["image_url_med"] as? String ?? "https://vignette.wikia.nocookie.net/r2da/images/4/46/Tumblr_static_i_love_anime_large.png/revision/latest?cb=20150922211250"
         
@@ -56,22 +58,24 @@ struct AnimeModel { //Make some suitable name
 
 
 
-struct Details {
 
-    var image_url_banner: String = String()
-}
 
-class Favourite: NSManagedObject {
-    
-    @NSManaged var image_url_banner: String
-    
-    var stop : Details {
+struct tokenParameters {
+    let grant_type: String
+    let client_id: String
+    let client_secret: String
+
+    var getToken:[String:Any] {
         get {
-            return Details(image_url_banner: self.image_url_banner)
-        }
-        set {
-            self.image_url_banner = newValue.image_url_banner
-
+            return ["grant_type" : grant_type,
+                    "client_id" : client_id,
+                    "client_secret" : client_secret] as [String : Any]
         }
     }
+    
+    
+    
 }
+
+
+

@@ -14,6 +14,8 @@ target 'iOSHomework' do
 	pod 'NVActivityIndicatorView'
 	pod 'Reachability'
 	pod 'HCSStarRatingView', '~> 1.5'
+	pod 'SwiftyBeaver'
+	pod 'SDWebImage/WebP'
 
 
 end

@@ -7,7 +7,25 @@
 		<key>iOSHomework.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>7</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>3054A6661FE89C0D002BA540</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3054A67A1FE89C0D002BA540</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3054A6851FE89C0D002BA540</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

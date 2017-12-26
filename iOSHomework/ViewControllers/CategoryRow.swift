@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import NVActivityIndicatorView
+import SwiftyBeaver
 
 class CategoryRow : UITableViewCell, NVActivityIndicatorViewable {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -46,20 +47,24 @@ class CategoryRow : UITableViewCell, NVActivityIndicatorViewable {
 
     func getTokenPost() {
         
-        let params: [String: Any] = ["grant_type": "client_credentials","client_id": "alexgcz-eccbk", "client_secret": "qTfhz0Z0v4hho2bweDhurQbM"]
-        
-        Alamofire.request(Router.create(params))
+       
+         let params = tokenParameters(grant_type: "client_credentials", client_id: "alexgcz-eccbk", client_secret: "qTfhz0Z0v4hho2bweDhurQbM")
+        Alamofire.request(Router.create(params.getToken as [String : AnyObject]))
             .responseJSON { response in
                 guard response.result.error == nil else {
                     // got an error in getting the data, need to handle it
-                    print("error calling POST on /todos/1")
-                    print(response.result.error!)
+                   
+                    
+                    SwiftyBeaver.error("error calling POST on /todos/1")
+                    SwiftyBeaver.error(response.result.error!)
                     return
                 }
                 // make sure we got some JSON since that's what we expect
                 guard let json = response.result.value as? [String: Any] else {
                     print("didn't get object as JSON from API")
-                    print("Error: \(String(describing: response.result.error))")
+                    
+                    SwiftyBeaver.error("didn't get object as JSON from API")
+                    SwiftyBeaver.error("Error: \(String(describing: response.result.error))")
                     
                     return
                 }
@@ -68,7 +73,8 @@ class CategoryRow : UITableViewCell, NVActivityIndicatorViewable {
                     print("Could not get todo title from JSON")
                     return
                 }
-                print("Token: " + token)
+                
+                SwiftyBeaver.info("Token: \(token)")
                 self.getanime(token: token)
                 
         }
@@ -149,7 +155,9 @@ extension CategoryRow : UICollectionViewDataSource {
         passSecondController.adult = items[sender.view.tag].adult
         passSecondController.average = items[sender.view.tag].average_score
         passSecondController.getDescription = items[sender.view.tag].description
-        
+        passSecondController.getPopularity = items[sender.view.tag].popularity
+        passSecondController.getStartDate = items[sender.view.tag].start_date_fuzzy
+        passSecondController.getendDate = items[sender.view.tag].end_date_fuzzy
         self.window?.rootViewController?.present(passSecondController, animated: true , completion: nil)
     }
     

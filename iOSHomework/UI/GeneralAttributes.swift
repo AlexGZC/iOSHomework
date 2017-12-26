@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class GeneralAttributes{
     
     
@@ -38,9 +39,8 @@ class GeneralAttributes{
     
     
     static func loadImageFromUrl(url: String, view: UIImageView){
-        let y = CGSize(width: 5, height: 5)
-
         
+        let y = CGSize(width: 5, height: 5)
         // Create Url from string
         let url = NSURL(string: url)!
         
@@ -53,7 +53,7 @@ class GeneralAttributes{
                 // execute in UI thread
                 DispatchQueue.main.async(execute: { () -> Void in
                     let image = UIImage(data: data)
-                    
+                  
                     view.image = image
                     
                     
@@ -109,17 +109,19 @@ class GeneralAttributes{
         )
     }
     
-    //Set a textfield with only one line at the bottom
-    static func borderBottonmTextField(textField: UITextField){
-        let borderBottom = CALayer()
-        let borderWidth = CGFloat(2.0)
-        borderBottom.borderColor = UIColor.gray.cgColor
-        borderBottom.frame = CGRect(x: 0, y: textField.frame.height - 1.0, width: textField.frame.width , height: textField.frame.height - 1.0)
-        borderBottom.borderWidth = borderWidth
-        textField.layer.addSublayer(borderBottom)
-        textField.layer.masksToBounds = true
-        textField.tintColor = .white
+    
+    //Dates
+    static func arrangeUSFormat(strDate : String)-> String
+    {
+        var strUpdated = strDate
+        if strDate.count == 8 {
+            
+            strUpdated.insert("-", at: strUpdated.index(strUpdated.startIndex, offsetBy: 4))
+            strUpdated.insert("-", at: strUpdated.index(strUpdated.startIndex, offsetBy: 7))
+            
+        }
+        return strUpdated
     }
- 
+
     
 }

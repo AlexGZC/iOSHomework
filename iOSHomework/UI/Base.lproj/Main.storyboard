@@ -346,10 +346,13 @@
                         <outlet property="averageLabel" destination="iJY-ao-hkz" id="2Zc-WS-bkH"/>
                         <outlet property="bannerImageView" destination="xfc-NQ-64n" id="JHW-gL-Ojf"/>
                         <outlet property="descriptionTextView" destination="NJu-rW-h9N" id="TW4-2W-cZP"/>
+                        <outlet property="endDate" destination="7fj-6R-e2i" id="f0C-Z5-Ghn"/>
                         <outlet property="englishTitle" destination="Ege-Kl-ZwC" id="PBk-Eg-vz5"/>
                         <outlet property="getAdult" destination="qnb-Sl-gGn" id="GOF-qh-ING"/>
                         <outlet property="japaneseTitle" destination="2I5-w3-4pw" id="kKc-2U-o5Z"/>
+                        <outlet property="showPopularity" destination="1bq-4V-ynf" id="vMJ-wd-p9z"/>
                         <outlet property="starRating" destination="gnA-DQ-Pz1" id="Qbv-nn-mTE"/>
+                        <outlet property="startDate" destination="fB8-yP-dHw" id="SsQ-gd-H3f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KxU-cK-Ktk" userLabel="First Responder" sceneMemberID="firstResponder"/>

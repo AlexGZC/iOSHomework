@@ -8,6 +8,8 @@
 
 import UIKit
 import HCSStarRatingView
+import SDWebImage
+import SwiftyBeaver
 
 class DetailsViewController: UIViewController {
     
@@ -19,6 +21,9 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var averageLabel: UILabel!
     @IBOutlet weak var starRating: HCSStarRatingView!
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var showPopularity: UILabel!
+    @IBOutlet weak var startDate: UILabel!
+    @IBOutlet weak var endDate: UILabel!
     
     
     var getEnglishTitle = String()
@@ -28,12 +33,19 @@ class DetailsViewController: UIViewController {
     var average = Double()
     var setRating = Int()
     var getDescription = String()
+    var getPopularity = Int()
+    var getStartDate = Int()
+    var getendDate = Int()
+    
+    
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         englishTitle.text = getEnglishTitle
         japaneseTitle.text = getJapaneseTitle
-        GeneralAttributes.loadImageFromUrl(url: bannerImage, view: bannerImageView)
+        bannerImageView.sd_setImage(with: URL(string: bannerImage), placeholderImage: UIImage(named: "placeholder.png"))
+        
         if adult == true{
             getAdult.text =  "18"
   
@@ -58,9 +70,16 @@ class DetailsViewController: UIViewController {
         starRating.allowsHalfStars = true
         averageLabel.text = average.description
         descriptionTextView.text = getDescription
+        showPopularity.text = getPopularity.description
+        SwiftyBeaver.info(getPopularity.description)
+        startDate.text = GeneralAttributes.arrangeUSFormat(strDate: getStartDate.description)
+        endDate.text = GeneralAttributes.arrangeUSFormat(strDate: getendDate.description )
+        
     }
     
-    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
